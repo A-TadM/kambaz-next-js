@@ -293,7 +293,8 @@ tell browsers to render the gaps.
        <h4>Anchor tag</h4>
        Please
        <a href="https://www.lipsum.com" id="wd-lipsum"> click here </a>to get dummy text<br/>
-
+       Please
+       <a href="https://github.com/A-TadM/kambaz-next-js" id="wd-github"> click here </a>to access to the git repository<br/>
 
     </div>
 );}
