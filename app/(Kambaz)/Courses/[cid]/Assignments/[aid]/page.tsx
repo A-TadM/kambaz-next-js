@@ -58,7 +58,7 @@ export default function AssignmentEditor() {
                  <Row>
                      <FormLabel htmlFor="wd-submission-type" column sm={{span: 1, offset: 1}}> Submission Type </FormLabel>
                      <Col sm={10} className="wd-assignment-percentage p-3 rounded-2">
-                         <FormSelect id="wd-submission-type" className="mb-3 ps-5">
+                         <FormSelect id="wd-submission-type" className="mb-3 ms-1">
                             <option value="ONLINE" defaultChecked>Online</option>
                             <option value="ONPAPER">On Paper</option>
                          </FormSelect>
