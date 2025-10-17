@@ -78,7 +78,7 @@ export default function Modules() {
 
               <BsGripVertical className="me-2 fs-3" /><span className="wd-title ps-3">READINGS</span><LessonControlButtons /> 
               <ListGroup className="wd-content rounded-0">
-                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 1 - Building React User Interfaces with HTML<LessonControlButtons /> </ListGroupItem>
+                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 1 - Building React UI<LessonControlButtons /> </ListGroupItem>
                 <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Full Stack Developer - Chapter 2 - Creating ...<LessonControlButtons /> </ListGroupItem>
               </ListGroup>
 
@@ -126,8 +126,8 @@ export default function Modules() {
 
               <BsGripVertical className="me-2 fs-3" /><span className="wd-title ps-3">READINGS</span><LessonControlButtons /> 
               <ListGroup className="wd-content rounded-0">
-                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 1 - Building React User Interfaces with HTML<LessonControlButtons /> </ListGroupItem>
-                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 2 - Styling Web Pages with CSS<LessonControlButtons /> </ListGroupItem>
+                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 1 - Building React UI<LessonControlButtons /> </ListGroupItem>
+                <ListGroupItem className="wd-content-item p-3 ps-0 pe-0"><BsGripVertical className="me-5 fs-3" />Developing Full Stack Next.js Web Applications - Chapter 2 - Styling Web Page<LessonControlButtons /> </ListGroupItem>
               </ListGroup>
 
               <BsGripVertical className="me-2 fs-3" /><span className="wd-title ps-3">SLIDES</span><LessonControlButtons /> 
