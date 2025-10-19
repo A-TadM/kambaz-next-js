@@ -1,3 +1,6 @@
+"use client"
+
+
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,32 +9,39 @@ import FormControl from 'react-bootstrap/FormControl';
 import FormSelect from 'react-bootstrap/FormSelect';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
+import * as db from "../../../../Database";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
 
 export default function AssignmentEditor() {
+ const { cid, aid }  = useParams();
+ const assignments = db.assignments;  
+ const assignment = assignments.find((item) => (item._id === aid));
+
+ const text = "\nThe assignment is available online\n\n" +
+              "Submit a link to the landing page of your Web application running on Netlify.\n\n" +
+              "The landing page should include the following:\n\n" +
+              "  *  Your full name and section\n" +
+              "  *  Links to each of the lab assignments\n" +
+              "  *  Link to the Kanbas application\n" +
+              "  *  Links to all relevant source code repositories\n\n" +
+              "The Kanbas application should include a link to navigate back to the landing page.\n";
   return (
     <div id="wd-assignments-editor">
       <Form>
           <FormLabel htmlFor="wd-name"> Assignment Name </FormLabel>
           <Row className="mb-3">
-              <Col > <FormControl id="wd-name" defaultValue="A1 - ENV + HTML" /> </Col>
+              <Col > <FormControl id="wd-name" defaultValue={assignment?.title} /> </Col>
           </Row>
           <Row className="mb-3">
-              <Col > <FormControl id="wd-description" as="textarea" rows={10}
-                                  defaultValue="The assignment is available online
-                                                Submit a link to the landing page of your Web application running on Netlify.
-                                                The landing page should include the following:
-                                                Your full name and section
-                                                Links to each of the lab assignments
-                                                Link to the Kanbas application
-                                                Links to all relevant source code repositories
-                                                The Kanbas application should include a link to navigate back to the landing page."
-                                  /> 
+              <Col > 
+                  <FormControl id="wd-description" as="textarea" rows={10} defaultValue={text} /> 
               </Col>
           </Row>
           <Row className="mb-3">
               <FormLabel htmlFor="wd-points" column sm={{span: 1, offset: 1}}> Points </FormLabel>
-              <Col sm={10}> <FormControl id="wd-points" type="number" defaultValue={100} /> </Col>
+              <Col sm={10}> <FormControl id="wd-points" type="number" defaultValue={assignment?.points} /> </Col>
           </Row>
           <Row className="mb-0">
               <FormLabel htmlFor="wd-group" column sm={{span: 1, offset: 1}}> Assignment Group </FormLabel>
@@ -78,11 +88,11 @@ export default function AssignmentEditor() {
                          <FormLabel htmlFor="wd-assign-to" className="mb-1"><b>Assign to</b></FormLabel>
                          <FormControl id="wd-assign-to" defaultValue="Everyone" className="mb-2" />
                          <FormLabel htmlFor="wd-due-date"><b>Due</b></FormLabel>
-                         <FormControl id="wd-due-date" type="date" defaultValue="2024-05-13" className="mb-2" />
+                         <FormControl id="wd-due-date" type="date" defaultValue={assignment?.due} className="mb-2" />
                          <Row>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-from"><b>Available from</b></FormLabel>
-                              <FormControl id="wd-available-from" type="date" defaultValue="2024-05-06" />
+                              <FormControl id="wd-available-from" type="date" defaultValue={assignment?.availableDate} />
                           </Col>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-until"><b>Until</b></FormLabel>
@@ -93,8 +103,13 @@ export default function AssignmentEditor() {
                  </Row>
           </fieldset>
           <Row><hr /></Row>
-          <Button variant="danger" size="sm" className="me-1 float-end" id="wd-save-btn">Save</Button>
-          <Button variant="secondary" size="sm" className="me-1 float-end" id="wd-cancel-btn">Cancel</Button>
+          <Button variant="danger" size="sm" className="me-1 float-end" id="wd-save-btn">
+                 <Link href={`/Courses/${cid}/Assignments`} className='text-decoration-none text-white'>Save</Link> 
+          </Button>
+
+          <Button variant="secondary" size="sm" className="me-1 float-end" id="wd-cancel-btn">
+                 <Link href={`/Courses/${cid}/Assignments`} className='text-decoration-none text-black'>Cancel</Link> 
+          </Button>
       </Form>
     </div>
 );}
