@@ -7,7 +7,7 @@ export default function AccountLayout({ children }: Readonly<{ children: ReactNo
         <div className="d-none d-md-block">
           <AccountNavigation />
         </div>
-        <div className="flex-fill">
+        <div id="wd-account-layout">
           {children}
         </div>       
       </div>
