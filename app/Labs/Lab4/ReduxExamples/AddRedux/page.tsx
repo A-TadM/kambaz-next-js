@@ -10,10 +10,11 @@ import Button from 'react-bootstrap/Button';
 
 
 export default function AddRedux() {
-  const [a, setA] = useState(12);
-  const [b, setB] = useState(23);
   const { sum } = useSelector((state: any) => state.addReducer);
   const dispatch = useDispatch();
+  const [a, setA] = useState(12);
+  const [b, setB] = useState(23);
+  
   return (
     <div className="w-80" id="wd-add-redux">
       <h1>Add Redux</h1>
