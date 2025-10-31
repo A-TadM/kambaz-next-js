@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-import { useSelector, useDispatch } from "react-redux";
+{/*import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { add } from "./addReducer";
 import { FormControl } from "react-bootstrap";
@@ -30,4 +30,4 @@ export default function AddRedux() {
       <hr/>
     </div>
   );
-}
+}*/}
