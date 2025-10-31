@@ -1,6 +1,6 @@
-import HelloRedux from "./HelloRedux/page";
-import CounterRedux from "./CounterRedux/page";
-import AddRedux from "./AddRedux/page";
+import HelloRedux from "./HelloRedux/index";
+import CounterRedux from "./CounterRedux/index";
+import AddRedux from "./AddRedux/index";
 import TodoList from "./todos/TodoList";
 
 
