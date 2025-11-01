@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 import Button from 'react-bootstrap/Button';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import { FormControl } from "react-bootstrap";

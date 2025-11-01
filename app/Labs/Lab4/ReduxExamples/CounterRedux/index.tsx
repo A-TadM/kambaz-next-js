@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterReducer";
 import { RootState } from "../../store";
