@@ -7,10 +7,11 @@ import { useState } from "react";
 import { add } from "./addReducer";
 import { FormControl } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
+import { RootState } from "../../store";
 
 
 export default function AddRedux() {
-  const { sum } = useSelector((state: any) => state.addReducer);
+  const { sum } = useSelector((state: RootState) => state.addReducer);
   const dispatch = useDispatch();
   const [a, setA] = useState(12);
   const [b, setB] = useState(23);

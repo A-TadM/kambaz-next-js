@@ -7,10 +7,11 @@ import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 
 import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 
 export default function TodoList() {
-  const { todos } = useSelector((state: any) => state.todosReducer);
+  const { todos } = useSelector((state: RootState) => state.todosReducer);
 
   return (
     <div id="wd-todo-list-redux">
