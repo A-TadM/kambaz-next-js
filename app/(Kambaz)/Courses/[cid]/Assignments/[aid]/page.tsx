@@ -9,16 +9,24 @@ import FormControl from 'react-bootstrap/FormControl';
 import FormSelect from 'react-bootstrap/FormSelect';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
-import * as db from "../../../../Database";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+
+import { useState } from "react";
+import { addAssignment, updateAssignment } from "../reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../../store";
 
 
 export default function AssignmentEditor() {
  const { cid, aid }  = useParams();
- const assignments = db.assignments;  
+ const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+ const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+ 
  const assignment = assignments.find((item) => (item._id === aid));
-
+ let newFlag = false; 
+ let newValue;
+ 
  const text = "\nThe assignment is available online\n\n" +
               "Submit a link to the landing page of your Web application running on Netlify.\n\n" +
               "The landing page should include the following:\n\n" +
@@ -27,21 +35,39 @@ export default function AssignmentEditor() {
               "  *  Link to the Kanbas application\n" +
               "  *  Links to all relevant source code repositories\n\n" +
               "The Kanbas application should include a link to navigate back to the landing page.\n";
+
+ if (assignment === undefined) { 
+   newFlag = true;
+   newValue = { _id: String(aid), title: "New Assignment", course: String(cid), availableDate: "", 
+                due: "", points: 100, des: "New Assignment Description", availableUntilDate: "" };
+ } else {
+   newValue = {...assignment, des: "Description", availableUntilDate: ""};
+ }     
+
+ const [newAssignment, setNewAssignment] = useState(newValue);  
+ const dispatch = useDispatch();
+
   return (
     <div id="wd-assignments-editor">
       <Form>
           <FormLabel htmlFor="wd-name"> Assignment Name </FormLabel>
           <Row className="mb-3">
-              <Col > <FormControl id="wd-name" defaultValue={assignment?.title} /> </Col>
+              <Col > 
+                  <FormControl id="wd-name" defaultValue={newAssignment.title}
+                               onChange={(e) => {setNewAssignment({...newAssignment, title: e.target.value});}} /> 
+              </Col>
           </Row>
           <Row className="mb-3">
               <Col > 
-                  <FormControl id="wd-description" as="textarea" rows={10} defaultValue={text} /> 
+                  <FormControl id="wd-description" as="textarea" rows={10} defaultValue={newAssignment.des}
+                               onChange={(e) => {setNewAssignment({...newAssignment, des: e.target.value});}} /> 
               </Col>
           </Row>
           <Row className="mb-3">
               <FormLabel htmlFor="wd-points" column sm={{span: 1, offset: 1}}> Points </FormLabel>
-              <Col sm={10}> <FormControl id="wd-points" type="number" defaultValue={assignment?.points} /> </Col>
+              <Col sm={10}> <FormControl id="wd-points" type="number" defaultValue={newAssignment.points}
+                                         onChange={(e) => {setNewAssignment({...newAssignment, points: parseInt(e.target.value)});}} /> 
+              </Col>
           </Row>
           <Row className="mb-0">
               <FormLabel htmlFor="wd-group" column sm={{span: 1, offset: 1}}> Assignment Group </FormLabel>
@@ -88,24 +114,33 @@ export default function AssignmentEditor() {
                          <FormLabel htmlFor="wd-assign-to" className="mb-1"><b>Assign to</b></FormLabel>
                          <FormControl id="wd-assign-to" defaultValue="Everyone" className="mb-2" />
                          <FormLabel htmlFor="wd-due-date"><b>Due</b></FormLabel>
-                         <FormControl id="wd-due-date" type="date" defaultValue={assignment?.due} className="mb-2" />
+                         <FormControl id="wd-due-date" type="date" defaultValue={newAssignment.due} className="mb-2"
+                                      onChange={(e) => {setNewAssignment({...newAssignment, due: e.target.value});}} />
                          <Row>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-from"><b>Available from</b></FormLabel>
-                              <FormControl id="wd-available-from" type="date" defaultValue={assignment?.availableDate} />
+                              <FormControl id="wd-available-from" type="date" defaultValue={newAssignment.availableDate}
+                                           onChange={(e) => {setNewAssignment({...newAssignment, availableDate: e.target.value});}} />
                           </Col>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-until"><b>Until</b></FormLabel>
-                              <FormControl id="wd-available-until" type="date" defaultValue="" />
+                              <FormControl id="wd-available-until" type="date" defaultValue={newAssignment.availableUntilDate}
+                                           onChange={(e) => {setNewAssignment({...newAssignment, availableUntilDate: e.target.value});}} />
                           </Col>
                          </Row>
                      </Col>   
                  </Row>
           </fieldset>
           <Row><hr /></Row>
-          <Button variant="danger" size="sm" className="me-1 float-end" id="wd-save-btn">
+          
+          { currentUser.role === "FACULTY" &&
+          <Button variant="danger" size="sm" className="me-1 float-end" id="wd-save-btn"
+                  onClick={() => {if (newFlag) {
+                                    dispatch(addAssignment(newAssignment));
+                                  } else {
+                                    dispatch(updateAssignment(newAssignment));}}}>
                  <Link href={`/Courses/${cid}/Assignments`} className='text-decoration-none text-white'>Save</Link> 
-          </Button>
+          </Button> }
 
           <Button variant="secondary" size="sm" className="me-1 float-end" id="wd-cancel-btn">
                  <Link href={`/Courses/${cid}/Assignments`} className='text-decoration-none text-black'>Cancel</Link> 

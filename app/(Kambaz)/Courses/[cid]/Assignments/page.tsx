@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import Link from "next/link";
@@ -12,12 +13,31 @@ import { MdOutlineAssignment } from "react-icons/md";
 import Container from 'react-bootstrap/Container';
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useParams } from "next/navigation";
-import * as db from "../../../Database";
+//import * as db from "../../../Database";
+
+import { useState } from "react";
+import { deleteAssignment } from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+import { FaTrash } from "react-icons/fa";
+import AssignmentRemover from "./AssignmentRemover";
 
 
 export default function Assignments() {
   const { cid }  = useParams();
-  const assignments = db.assignments;
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+                                              
+  const handleShow = (assignment: any) => {setShow(true);
+                                           setSelectedAssignment(assignment);}
+
+  const [selectedAssignment, setSelectedAssignment] = useState<any>({});
+
   return (
   <div> 
     <AssignmentsControls /><br /><br /><br />
@@ -38,7 +58,13 @@ export default function Assignments() {
                    <Link href={`/Courses/${assignment.course}/Assignments/${assignment._id}`}
                          className="wd-assignment-link text-dark fs-4 text-decoration-none" >
                      <b>{assignment.title}</b>
-                   </Link> <br/>
+                   </Link> 
+
+                   { currentUser.role === "FACULTY" &&
+                     <FaTrash className="text-danger mb-1" onClick={() => handleShow(assignment)} />
+                   }  
+                   
+                   <br/>
                    <FormLabel className="text-danger">Multiple Modules</FormLabel><FormLabel className="ps-1">| <b>Not availabe until</b> {assignment.availableDate} |</FormLabel> <br/>
                    <FormLabel><b>Due</b> {assignment.due} | {assignment.points} pts</FormLabel>
                  </Container>
@@ -74,6 +100,11 @@ export default function Assignments() {
         </ListGroup>
       </ListGroupItem>}*/}
     </ListGroup>
+
+    <AssignmentRemover show={show} handleClose={handleClose} dialogTitle="Delete Assignment"
+                                   assignmentName={selectedAssignment.title} 
+                                   assignmentId={selectedAssignment._id}
+                                   deleteAssignment={(assignmentId) => {dispatch(deleteAssignment(assignmentId));}} />
 
   </div>
 
