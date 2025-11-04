@@ -21,6 +21,7 @@ import { RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse } from "../Courses/reducer";
 import { addNewEnrollment, deleteEnrollment } from "./reducer";
+import { redirect } from "next/dist/client/components/navigation";
 
 
 export default function Dashboard() {
@@ -44,7 +45,8 @@ export default function Dashboard() {
 
   return (
     <div className="p-4" id="wd-dashboard">
-       <Button onClick={() => setAllPublished(!allPublished)} 
+       <Button onClick={() => { if (currentUser._id === "") { redirect("/Account/Signin"); } 
+                                setAllPublished(!allPublished) }} 
                className="btn-primary float-end"
                id="wd-enrollments-click"> Enrollments </Button>
 
