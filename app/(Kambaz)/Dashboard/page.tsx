@@ -55,15 +55,35 @@ export default function Dashboard() {
       <h5>New Course
           <button className="btn btn-primary float-end"
                   id="wd-add-new-course-click"
-                  onClick={() => dispatch(addNewCourse(course))} > Add </button>
+                  onClick={() => {dispatch(addNewCourse(course));
+                                  setCourse({_id: "0",
+                                        name: "",
+                                        number: "New Number",
+                                        startDate: "2023-09-10", 
+                                        endDate: "2023-12-15",
+                                        department: "New Department",
+                                        credits: 4,
+                                        description: "",
+                                        color: "black"});
+                  }} > Add </button>
 
           <button className="btn btn-warning float-end me-2"
                   id="wd-update-course-click"
-                  onClick={() => dispatch(updateCourse(course))}> Update </button>       
+                  onClick={() => {dispatch(updateCourse(course));
+                                  setCourse({_id: "0",
+                                        name: "",
+                                        number: "New Number",
+                                        startDate: "2023-09-10", 
+                                        endDate: "2023-12-15",
+                                        department: "New Department",
+                                        credits: 4,
+                                        description: "",
+                                        color: "black"});
+                  }}> Update </button>       
       </h5><br />
-      <FormControl defaultValue={course.name} className="mb-2"
+      <FormControl value={course.name} as="textarea" rows={1} className="mb-2" placeholder="course name"
                    onChange={(e) => setCourse({ ...course, name: e.target.value }) } />
-      <FormControl value={course.description} as="textarea" rows={3}
+      <FormControl value={course.description} as="textarea" rows={3} placeholder="course description"
                    onChange={(e) => setCourse({ ...course, description: e.target.value }) }/>
       <hr /></div> }
 
