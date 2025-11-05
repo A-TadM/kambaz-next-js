@@ -81,7 +81,7 @@ export default function Dashboard() {
                                         color: "black"});
                   }}> Update </button>       
       </h5><br />
-      <FormControl value={course.name} as="textarea" rows={1} className="mb-2" placeholder="course name"
+      <input value={course.name} className="form-control mb-2" placeholder="course name"
                    onChange={(e) => setCourse({ ...course, name: e.target.value }) } />
       <FormControl value={course.description} as="textarea" rows={3} placeholder="course description"
                    onChange={(e) => setCourse({ ...course, description: e.target.value }) }/>
@@ -162,10 +162,8 @@ export default function Dashboard() {
                              <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                                        {course.description} </CardText>
                              
-                             <Button onClick={(event) => { event.preventDefault();
-                                                           dispatch(addNewEnrollment({user: currentUser._id,
-                                                                                      course: course._id}));
-                                                         }} 
+                             <Button onClick={() => { dispatch(addNewEnrollment({user: currentUser._id,
+                                                                                 course: course._id})); }} 
                                      className="btn-success"
                                      id="wd-enroll-course-click2"> Enroll </Button>             
         
