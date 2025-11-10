@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-import FormControl from 'react-bootstrap/FormControl';
 //import FormSelect from 'react-bootstrap/FormSelect';
 
 import { redirect } from "next/dist/client/components/navigation";
@@ -33,32 +32,38 @@ export default function Profile() {
       <h3>Profile</h3>
       {profile && (
        <div>
-      <FormControl id="wd-username" className="mb-2" placeholder="username"
-                   defaultValue={profile.username}
-                   onChange={(e) => setProfile({ ...profile, username: e.target.value }) } />
+      <input value={profile.username}
+                   className="form-control mb-2"  
+                   onChange={(e) => setProfile({ ...profile, username: e.target.value }) } 
+                   placeholder="username" id="wd-username" />
       
-      <FormControl id="wd-password" className="mb-2" placeholder="password"
-                   defaultValue={profile.password}
-                   onChange={(e) => setProfile({ ...profile, password: e.target.value }) } />
+      <input value={profile.password}
+                   className="form-control mb-2"
+                   onChange={(e) => setProfile({ ...profile, password: e.target.value }) }
+                   placeholder="password" id="wd-password" />
       
-      <FormControl id="wd-firstname" className="mb-2" placeholder="First Name"
-                   defaultValue={profile.firstName}
-                   onChange={(e) => setProfile({ ...profile, firstName: e.target.value }) } />
+      <input value={profile.firstName}
+                   className="form-control mb-2"  
+                   onChange={(e) => setProfile({ ...profile, firstName: e.target.value }) }
+                   placeholder="First Name" id="wd-firstname" />
       
-      <FormControl id="wd-lastname" className="mb-2" placeholder="Last Name"
-                   defaultValue={profile.lastName}
-                   onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) } />
+      <input value={profile.lastName}
+                   className="form-control mb-2" 
+                   onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) }
+                   placeholder="Last Name" id="wd-lastname" />
       
-       <FormControl id="wd-dob" className="mb-2" type="date"
-                    defaultValue={profile.dob}
-                    onChange={(e) => setProfile({ ...profile, dob: e.target.value })} />
+       <input value={profile.dob}
+                    className="form-control mb-2" 
+                    onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+                    type="date" id="wd-dob" />
       
-      <FormControl id="wd-email" className="mb-2" type="email"
-                   defaultValue={profile.email}
-                   onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+      <input value={profile.email} 
+                   className="form-control mb-2"
+                   onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                   type="email" id="wd-email" />
 
-      <select className="form-control mb-2" id="wd-role" defaultValue={profile.role}
-              onChange={(e) => setProfile({ ...profile, role: e.target.value })}>
+      <select value={profile.role} className="form-control mb-2" 
+              onChange={(e) => setProfile({ ...profile, role: e.target.value })} id="wd-role">
           <option value="USER">User</option>
           <option value="ADMIN">Admin</option>
           <option value="FACULTY">Faculty</option>
