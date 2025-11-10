@@ -32,11 +32,11 @@ export default function WorkingWithObjectsAsynchronously() {
       <FormControl as="textarea" rows={3} value={assignment.description} className="mb-2"
                    onChange={(e) => setAssignment({ ...assignment, description: e.target.value }) }/>
 
-      <input value={assignment.due} className="form-control mb-2" 
+      <input defaultValue={assignment.due} className="form-control mb-2" 
              onChange={(e) => setAssignment({ ...assignment, due: e.target.value })} type="date" />
 
       <div className="form-check form-switch mb-2">
-        <input checked={assignment.completed}
+        <input defaultChecked={assignment.completed}
                className="form-check-input" 
                onChange={(e) => setAssignment({ ...assignment, completed: e.target.checked }) }
                type="checkbox" id="wd-completed" />

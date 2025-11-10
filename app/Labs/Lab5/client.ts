@@ -17,3 +17,10 @@ export const updateTitle = async (title: string) => {
   return response.data;
 };
 
+
+const TODOS_API = `${HTTP_SERVER}/lab5/todos`;
+export const fetchTodos = async () => {
+  const response = await axios.get(TODOS_API);
+  return response.data;
+};
+

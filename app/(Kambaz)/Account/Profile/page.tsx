@@ -32,32 +32,33 @@ export default function Profile() {
       <h3>Profile</h3>
       {profile && (
        <div>
-      <input value={profile.username}
+      <input defaultValue={profile.username}
                    className="form-control mb-2"  
+                   placeholder="username" id="wd-username"
                    onChange={(e) => setProfile({ ...profile, username: e.target.value }) } 
-                   placeholder="username" id="wd-username" />
+                    />
       
-      <input value={profile.password}
+      <input defaultValue={profile.password}
                    className="form-control mb-2"
                    onChange={(e) => setProfile({ ...profile, password: e.target.value }) }
                    placeholder="password" id="wd-password" />
       
-      <input value={profile.firstName}
+      <input defaultValue={profile.firstName}
                    className="form-control mb-2"  
                    onChange={(e) => setProfile({ ...profile, firstName: e.target.value }) }
                    placeholder="First Name" id="wd-firstname" />
       
-      <input value={profile.lastName}
+      <input defaultValue={profile.lastName}
                    className="form-control mb-2" 
                    onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) }
                    placeholder="Last Name" id="wd-lastname" />
       
-       <input value={profile.dob}
+       <input defaultValue={profile.dob}
                     className="form-control mb-2" 
                     onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
                     type="date" id="wd-dob" />
       
-      <input value={profile.email} 
+      <input defaultValue={profile.email} 
                    className="form-control mb-2"
                    onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                    type="email" id="wd-email" />
