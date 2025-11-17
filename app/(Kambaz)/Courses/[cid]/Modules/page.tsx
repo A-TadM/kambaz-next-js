@@ -1,148 +1,72 @@
+"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+import ModulesControls from "./ModulesControls";
+import ListGroup from 'react-bootstrap/ListGroup';
+import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import LessonControlButtons from "./LessonControlButtons";
+import ModuleControlButtons from "./ModuleControlButtons";
+import { BsGripVertical } from "react-icons/bs";
+{/*import { GoTriangleDown } from "react-icons/go";*/}
+import { useParams } from "next/navigation";
+
+import { useState } from "react";
+import FormControl from 'react-bootstrap/FormControl';
+import { addModule, editModule, updateModule, deleteModule } from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+
+
 export default function Modules() {
+  const { cid }  = useParams();
+  const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const [moduleName, setModuleName] = useState("");
+  const dispatch = useDispatch();
+
+
   return (
-    <div>
-      {/* Implement Collapse All button, View Progress button, etc. */}
-      <button> Collapse All </button> <button> View Progress </button> <select defaultValue= "ALL"><option value="ALL">Publish ALL</option></select> <button> + Module </button>
-      <br />
-      <ul id="wd-modules">
-        <li className="wd-module">
-          <div className="wd-title">Week 1</div>
-          <ul className="wd-lessons">
-            
-            <li className="wd-lesson">
-              <label>Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to the course</li>
-                <li className="wd-content-item">Learn what is Web Development</li>
-              </ul>
+    <div className="wd-modules">
+      <ModulesControls setModuleName={setModuleName} 
+                       moduleName={moduleName} 
+                       addModule={() => {dispatch(addModule({ name: moduleName, course: cid }));
+                                         setModuleName("");}} />
+      <br /><br /><br /><br />
+      <ListGroup className="rounded-0" id="wd-modules">
+        {modules.filter((module) => module.course === cid)
+          .map((module, index) => (
+          <ListGroupItem key={index} className="wd-module p-0 mb-5 fs-5 border-gray">
 
-              <span className="wd-title">READINGS</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Full Stack Developer - Chapter 1 - Introduction</li>
-                <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating ...</li>
-              </ul>
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" /> 
+              { !module.editing && module.name }
+              {  module.editing && (<FormControl className="w-50 d-inline-block"
+                                                 onChange={(e) => dispatch(updateModule({ ...module, name: e.target.value }))}
+                                                 onKeyDown={(e) => { if (e.key === "Enter") {
+                                                                       dispatch(updateModule({ ...module, editing: false }));
+                                                                      }}}
+                                                 defaultValue={module.name}/>)}
 
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to Web Development</li>
-                <li className="wd-content-item">Creating an HTTP server with Node.js</li>
-                <li className="wd-content-item">Creating a React Application</li> <br />
-              </ul>
-            </li>
+              <ModuleControlButtons moduleId={module._id} 
+                                    deleteModule={(moduleId) => { dispatch(deleteModule(moduleId)); }}
+                                    editModule={(moduleId) => dispatch(editModule(moduleId))}
+                                    />
+            </div>
 
-    
-            <li className="wd-lesson">
-              <label>Week 1, Lecture 2 - Formatting User Interface with HTML</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Learn how to create user interface with HTML</li>
-                <li className="wd-content-item">Deploy the assignment to Netlify</li>
-              </ul>
+            {module.lessons && (
+              <ListGroup className="wd-lessons rounded-0">
+                {module.lessons.map((lesson: any, index: any) => 
+                  (<ListGroupItem key={index} className="wd-lesson p-3 ps-1 pe-0">
+                    <BsGripVertical className="me-2 fs-3" /> {lesson.name} <LessonControlButtons />
+                  </ListGroupItem>))
+                }
+              </ListGroup>)
+             }
+                
+          </ListGroupItem>
+          ))
+         }
 
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to HTML and DOM</li>
-                <li className="wd-content-item">Formatting web content with Headings and ...</li>
-                <li className="wd-content-item">Formatting content with List and Tables</li>
-              </ul>
-            </li>
-
-          </ul>
-        </li>
-
-        <li className="wd-module">
-          <div className="wd-title">Week 2</div>
-          <ul className="wd-lessons">
-            
-            <li className="wd-lesson">
-              <label>Week 2, Lecture 1 - Prototyping the React Kambaz User Interface with HTML</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Learn how to create user interfaces with HTML</li>
-                <li className="wd-content-item">Keep working on assignment 1</li>
-              </ul>
-
-              <span className="wd-title">READINGS</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Developing Full Stack Next.js Web Applications - Chapter 1 - Building React User Interfaces with HTML</li>
-                <li className="wd-content-item">Full Stack Developer - Chapter 2 - Creating ...</li>
-              </ul>
-
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Implementing the Kambaz Account Screens</li>
-                <li className="wd-content-item">Implementing the Kambaz Dashboard Screen</li>
-                <li className="wd-content-item">Implementing the Kambaz Courses Screen</li> <br />
-              </ul>
-            </li>
-
-    
-            <li className="wd-lesson">
-              <label>Week 2, Lecture 2 - Prototyping the React Kambaz User Interface with HTML</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Keep working on assignment 1</li>
-                <li className="wd-content-item">Deploy the assignment to Netlify</li>
-              </ul>
-
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Implementing the Kambaz Courses Screen</li>
-                <li className="wd-content-item">Implementing the Kambaz Modules Screen</li>
-                <li className="wd-content-item">Implementing the Kambaz Assignments Screens</li>
-              </ul>
-            </li>
-
-          </ul>
-        </li>
-
-        <li className="wd-module">
-          <div className="wd-title">Week 3</div>
-          <ul className="wd-lessons">
-            
-            <li className="wd-lesson">
-              <label>Week 3, Lecture 1 - Styling Web Pages with CSS and Bootstrap, Assignment 2</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to CSS</li>
-                <li className="wd-content-item">Selectors by tag ID, classes, and document structure</li>
-              </ul>
-
-              <span className="wd-title">READINGS</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Developing Full Stack Next.js Web Applications - Chapter 1 - Building React User Interfaces with HTML</li>
-                <li className="wd-content-item">Developing Full Stack Next.js Web Applications - Chapter 2 - Styling Web Pages with CSS</li>
-              </ul>
-
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Introduction to Cascading Style Sheets</li>
-                <li className="wd-content-item">Styling with Colors </li>
-                <li className="wd-content-item">The Box Model</li> <br />
-              </ul>
-            </li>
-
-    
-            <li className="wd-lesson">
-              <label>Week 3, Lecture 2 - Styling Web Pages with CSS and Bootstrap, Assignment 2</label> <br />
-              <span className="wd-title">LEARNING OBJECTIVES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Styling color and background color</li>
-                <li className="wd-content-item">Styling dimensions and positions</li>
-              </ul>
-
-              <span className="wd-title">SLIDES</span>
-              <ul className="wd-content">
-                <li className="wd-content-item">Size & Position</li>
-                <li className="wd-content-item">Float</li>
-                <li className="wd-content-item">Flex</li>
-              </ul>
-            </li>
-
-          </ul>
-        </li>
-
-      </ul>
+      </ListGroup>
     </div>
 );}

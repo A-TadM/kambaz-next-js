@@ -296,6 +296,5 @@ tell browsers to render the gaps.
        Please
        <a href="https://github.com/A-TadM/kambaz-next-js" id="wd-github"> click here </a>to access to the git repository<br/>
 
-
     </div>
 );}
