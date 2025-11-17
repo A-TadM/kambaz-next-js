@@ -32,6 +32,6 @@ export default function Labs() {
        </li>
      </ul>
      
-     Please <Link href="https://github.com/A-TadM/kambaz-next-js" id="wd-github" target="_blank">click here</Link> to get git repository.
+     {/*Please <Link href="https://github.com/A-TadM/kambaz-next-js" id="wd-github" target="_blank">click here</Link> to get git repository.*/}
    </div>
 );}
