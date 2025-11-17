@@ -80,7 +80,6 @@ export default function Dashboard() {
   
   const fetchCourses = async () => {
     try {
-      if (currentUser._id === "") { redirect("/Account/Signin"); }
       const courses = await client.findMyCourses();
       dispatch(setCourses(courses));
 
@@ -89,7 +88,8 @@ export default function Dashboard() {
       dispatch(setCurrentUser({_id: "", role: ""}));
     }
   };
-  useEffect(() => {fetchCourses();
+  useEffect(() => {if (currentUser._id === "") { redirect("/Account/Signin"); }
+                   fetchCourses();
                    fetchEnrollments();
                    fetchUnenrolledCourses()}, [currentUser]);
 
