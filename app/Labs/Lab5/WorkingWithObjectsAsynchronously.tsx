@@ -26,7 +26,7 @@ export default function WorkingWithObjectsAsynchronously() {
     <div id="wd-asynchronous-objects">
       <h3>Working with Objects Asynchronously</h3>
       <h4>Assignment</h4>
-      <FormControl defaultValue={assignment.title} className="mb-2"
+      <FormControl defaultValue={assignment.title} className="mb-2" 
                    onChange={(e) => setAssignment({ ...assignment, title: e.target.value }) } />
 
       <FormControl as="textarea" rows={3} value={assignment.description} className="mb-2"

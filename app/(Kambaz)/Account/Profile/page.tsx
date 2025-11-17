@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
 import Button from 'react-bootstrap/Button';
+import * as client from "../client";
 
 
 export default function Profile() {
@@ -21,10 +22,16 @@ export default function Profile() {
     if (currentUser._id === "") return redirect("/Account/Signin");
     setProfile(currentUser);
   };
-  const signout = () => {
+  const signout = async () => {
+    await client.signout();
     dispatch(setCurrentUser({_id: "", role: ""}));
     redirect("/Account/Signin");
   };
+  const updateProfile = async () => {
+    const updatedProfile = await client.updateUser(profile);
+    dispatch(setCurrentUser(updatedProfile));
+  };
+
   useEffect(() => {fetchProfile();}, []);
 
   return (
@@ -61,6 +68,7 @@ export default function Profile() {
       <input defaultValue={profile.email} 
                    className="form-control mb-2"
                    onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                   placeholder="email"
                    type="email" id="wd-email" />
 
       <select value={profile.role} className="form-control mb-2" 
@@ -72,6 +80,8 @@ export default function Profile() {
           <option value="TA">TA</option>
       </select>
 
+      <Button onClick={updateProfile} className="w-100 mb-2" id="wd-update-btn" 
+              variant="primary"> Update </Button>  
       <Button onClick={signout} className="w-100" id="wd-signout-btn" variant="danger"> Sign out </Button>
        </div>)}
     </div>
