@@ -5,18 +5,28 @@ import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa6";
 import Breadcrumb from "./Breadcrumb";
 
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
-import { RootState } from "../../store";
-import { useState } from "react";
+//import { RootState } from "../../store";
+import { useState, useEffect } from "react";
+
+import * as client from "../client";
 
 
 export default function CoursesLayout({ children }: { children: ReactNode; }) {
  const [clicked, setDone] = useState(true);
+ const [course, setCourse] = useState({name: '',});
 
  const { cid } = useParams();
- const { courses } = useSelector((state: RootState) => state.coursesReducer);
- const course = courses.find((course: any) => course._id === cid);
+ //const { courses } = useSelector((state: RootState) => state.coursesReducer);
+ //const course = courses.find((course: any) => course._id === cid);
+
+ const fetchCourse = async () => {
+   const course = await client.findCourseById(cid as string);
+   setCourse(course);
+ }
+ useEffect(() => {fetchCourse();}, []); 
+
 
  return (
    <div id="wd-courses">

@@ -15,12 +15,14 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useParams } from "next/navigation";
 //import * as db from "../../../Database";
 
-import { useState } from "react";
-import { deleteAssignment } from "./reducer";
+import { useState, useEffect } from "react";
+import { deleteAssignment, setAssignments } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import { FaTrash } from "react-icons/fa";
 import AssignmentRemover from "./AssignmentRemover";
+
+import * as client from "./client";
 
 
 export default function Assignments() {
@@ -38,6 +40,17 @@ export default function Assignments() {
 
   const [selectedAssignment, setSelectedAssignment] = useState<any>({});
 
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {fetchAssignments();}, []);
+
+  const onRemoveAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
   return (
   <div> 
     <AssignmentsControls /><br /><br /><br />
@@ -48,7 +61,7 @@ export default function Assignments() {
           <BsGripVertical className="me-2 fs-4" /> <b>ASSIGNMENTS</b> <AssignmentControlButtons />
         </div>
         <ListGroup className="wd-assignment-group rounded-0 wd-lesson">
-          {assignments.filter((assignment) => assignment.course === cid)
+          {assignments
               .map((assignment, index) => (
           
                <ListGroupItem key={index} className="wd-assignment-group-item p-3 ps-1 d-flex">
@@ -104,7 +117,7 @@ export default function Assignments() {
     <AssignmentRemover show={show} handleClose={handleClose} dialogTitle="Delete Assignment"
                                    assignmentName={selectedAssignment.title} 
                                    assignmentId={selectedAssignment._id}
-                                   deleteAssignment={(assignmentId) => {dispatch(deleteAssignment(assignmentId));}} />
+                                   deleteAssignment={(assignmentId) => {onRemoveAssignment(assignmentId);}} />
 
   </div>
 

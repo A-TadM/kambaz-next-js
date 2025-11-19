@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import Form from 'react-bootstrap/Form';
@@ -12,10 +13,12 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-import { useState } from "react";
-import { addAssignment, updateAssignment } from "../reducer";
+import { useState, useEffect } from "react";
+import { setAssignments } from "../reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../store";
+
+import * as client from "../client";
 
 
 export default function AssignmentEditor() {
@@ -23,9 +26,7 @@ export default function AssignmentEditor() {
  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
  
- const assignment = assignments.find((item) => (item._id === aid));
- let newFlag = false; 
- let newValue;
+ let newValue = {} as any;
  
  const text = "\nThe assignment is available online\n\n" +
               "Submit a link to the landing page of your Web application running on Netlify.\n\n" +
@@ -36,16 +37,36 @@ export default function AssignmentEditor() {
               "  *  Links to all relevant source code repositories\n\n" +
               "The Kanbas application should include a link to navigate back to the landing page.\n";
 
- if (assignment === undefined) { 
-   newFlag = true;
-   newValue = { _id: String(aid), title: "New Assignment", course: String(cid), availableDate: "", 
-                due: "", points: 100, des: "New Assignment Description", availableUntilDate: "" };
- } else {
-   newValue = {...assignment, des: "Description", availableUntilDate: ""};
- }     
-
  const [newAssignment, setNewAssignment] = useState(newValue);  
+ const [newFlag, setNewFlag] = useState(false); 
  const dispatch = useDispatch();
+
+ const onCreateAssignmentForCourse = async (newAssignmentValues: any) => {
+   const newAssignment = await client.createAssignmentForCourse(cid as string, newAssignmentValues);
+   dispatch(setAssignments([...assignments, newAssignment]));
+ };
+
+ const onUpdateAssignment = async (assignment: any) => {
+   await client.updateAssignment(assignment);
+   const newAssignments = assignments.map((a: any) => a._id === assignment._id ? assignment : a );
+   dispatch(setAssignments(newAssignments));
+ };
+
+ const fetchAssignment = async () => {
+   const assignment = await client.findAssignmentById(aid as string);
+
+   if (!(assignment.title)) { 
+     setNewFlag(true);
+     newValue = { title: "New Assignment", course: String(cid), availableDate: "", 
+                  due: "", points: 100, des: "New Assignment Description", availableUntilDate: "" };
+   } else {
+     newValue = {...assignment, des: "Description", availableUntilDate: ""};
+   } 
+
+   setNewAssignment(newValue);
+   
+ };
+ useEffect(() => {fetchAssignment();}, []);
 
   return (
     <div id="wd-assignments-editor">
@@ -136,9 +157,9 @@ export default function AssignmentEditor() {
           { currentUser.role === "FACULTY" &&
           <Button variant="danger" size="sm" className="me-1 float-end" id="wd-save-btn"
                   onClick={() => {if (newFlag) {
-                                    dispatch(addAssignment(newAssignment));
+                                    onCreateAssignmentForCourse(newAssignment);
                                   } else {
-                                    dispatch(updateAssignment(newAssignment));}}}>
+                                    onUpdateAssignment(newAssignment);}}}>
                  <Link href={`/Courses/${cid}/Assignments`} className='text-decoration-none text-white'>Save</Link> 
           </Button> }
 
