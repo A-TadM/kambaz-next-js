@@ -60,7 +60,7 @@ export default function Profile() {
                    onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) }
                    placeholder="Last Name" id="wd-lastname" />
       
-       <input defaultValue={profile.dob}
+       <input defaultValue={profile.dob?.substring(0, 10)}
                     className="form-control mb-2" 
                     onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
                     type="date" id="wd-dob" />
@@ -71,7 +71,7 @@ export default function Profile() {
                    placeholder="email"
                    type="email" id="wd-email" />
 
-      <select value={profile.role} className="form-control mb-2" 
+      <select value={profile.role} className="form-select mb-2" 
               onChange={(e) => setProfile({ ...profile, role: e.target.value })} id="wd-role">
           <option value="USER">User</option>
           <option value="ADMIN">Admin</option>

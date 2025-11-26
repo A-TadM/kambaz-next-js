@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa6";
