@@ -5,10 +5,6 @@
 import Table from 'react-bootstrap/Table';
 import { FaUserCircle } from "react-icons/fa";
 import PeopleDetails from "../Details";
-//import { useParams } from "next/navigation";
-//import * as db from "../../../../Database";
-
-//import * as enrollmentClient from "../../../../Dashboard/client";
 import { useState } from "react";
 
 
@@ -18,18 +14,6 @@ export default function PeopleTable({ users = [], fetchUsers , setRole, setName 
                                       setName: (name: string) => void; }) {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
-
- //const { cid } = useParams();
- //const { users } = db;
- 
- //const [enrollments, setEnrollments] = useState<any[]>([]);
-
- {/*const fetchEnrollments = async () => {
-   const enrollments = await enrollmentClient.fetchAllEnrollments();
-   setEnrollments(enrollments);
- };*/}
-
- //useEffect(() => { fetchEnrollments();}, []);
 
  return (
   <div id="wd-people-table">

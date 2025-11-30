@@ -43,7 +43,8 @@ export default function Dashboard() {
                                         department: "New Department",
                                         credits: 4,
                                         description: "New Description",
-                                        color: "black"});     
+                                        color: "black",
+                                        modules: []});     
                                         
   const [allPublished, setAllPublished] = useState(false);
   const [unenrolledCourses, setUnenrolledCourses] = useState<any[]>([]);   
@@ -123,7 +124,8 @@ export default function Dashboard() {
                                                    department: "New Department",
                                                    credits: 4,
                                                    description: "",
-                                                   color: "black"});
+                                                   color: "black",
+                                                   modules: []});
                   }} > Add </button>
 
           <button className="btn btn-warning float-end me-2"
@@ -144,7 +146,8 @@ export default function Dashboard() {
                                                     department: "New Department",
                                                     credits: 4,
                                                     description: "",
-                                                    color: "black"});
+                                                    color: "black",
+                                                    modules: []});
                   }}> Update </button>       
       </h5><br />
       <input value={course.name} className="form-control mb-2" placeholder="course name"

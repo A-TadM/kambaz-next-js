@@ -43,7 +43,7 @@ export default function TOC() {
        <NavLink href="https://github.com/A-TadM/kambaz-node-server-app" target="_blank" id="wd-github-server">Server GitHub</NavLink>
      </NavItem>
      <NavItem>
-       <NavLink href="https://kambaz-node-server-app-nkgb.onrender.com" target="_blank" id="wd-remote-server">Remote Server</NavLink>
+       <NavLink href="https://kambaz-node-server-app-1-vvq4.onrender.com" target="_blank" id="wd-remote-server">Remote Server</NavLink>
      </NavItem>
    </Nav>
 );} 

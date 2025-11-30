@@ -55,7 +55,7 @@ export default function AssignmentEditor() {
  const fetchAssignment = async () => {
    const assignment = await client.findAssignmentById(aid as string);
 
-   if (!(assignment.title)) { 
+   if (!(assignment)) { 
      setNewFlag(true);
      newValue = { title: "New Assignment", course: String(cid), availableDate: "", 
                   due: "", points: 100, des: "New Assignment Description", availableUntilDate: "" };
@@ -134,18 +134,18 @@ export default function AssignmentEditor() {
                      <Col sm={10} className="wd-assignment-percentage p-3 rounded-2">
                          <FormLabel htmlFor="wd-assign-to" className="mb-1"><b>Assign to</b></FormLabel>
                          <FormControl id="wd-assign-to" defaultValue="Everyone" className="mb-2" />
-                         <FormLabel htmlFor="wd-due-date"><b>Due</b></FormLabel>
-                         <FormControl id="wd-due-date" type="date" defaultValue={newAssignment.due} className="mb-2"
+                         <FormLabel htmlFor="wd-due-date"><b>Due</b></FormLabel> 
+                         <FormControl id="wd-due-date" type="date" defaultValue={newAssignment.due?.substring(0, 10)} className="mb-2"
                                       onChange={(e) => {setNewAssignment({...newAssignment, due: e.target.value});}} />
                          <Row>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-from"><b>Available from</b></FormLabel>
-                              <FormControl id="wd-available-from" type="date" defaultValue={newAssignment.availableDate}
+                              <FormControl id="wd-available-from" type="date" defaultValue={newAssignment.availableDate?.substring(0, 10)}
                                            onChange={(e) => {setNewAssignment({...newAssignment, availableDate: e.target.value});}} />
                           </Col>
                           <Col xs={6}>
                               <FormLabel htmlFor="wd-available-until"><b>Until</b></FormLabel>
-                              <FormControl id="wd-available-until" type="date" defaultValue={newAssignment.availableUntilDate}
+                              <FormControl id="wd-available-until" type="date" defaultValue={newAssignment.availableUntilDate?.substring(0, 10)}
                                            onChange={(e) => {setNewAssignment({...newAssignment, availableUntilDate: e.target.value});}} />
                           </Col>
                          </Row>

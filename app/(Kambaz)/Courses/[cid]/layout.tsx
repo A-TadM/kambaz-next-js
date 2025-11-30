@@ -22,8 +22,8 @@ export default function CoursesLayout({ children }: { children: ReactNode; }) {
  //const course = courses.find((course: any) => course._id === cid);
 
  const fetchCourse = async () => {
-   const course = await client.findCourseById(cid as string);
-   setCourse(course);
+   const foundCourse = await client.findCourseById(cid as string);
+   setCourse(foundCourse[0]);
  }
  useEffect(() => {fetchCourse();}, []); 
 

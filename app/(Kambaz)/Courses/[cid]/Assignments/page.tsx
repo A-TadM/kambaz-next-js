@@ -78,8 +78,8 @@ export default function Assignments() {
                    }  
                    
                    <br/>
-                   <FormLabel className="text-danger">Multiple Modules</FormLabel><FormLabel className="ps-1">| <b>Not availabe until</b> {assignment.availableDate} |</FormLabel> <br/>
-                   <FormLabel><b>Due</b> {assignment.due} | {assignment.points} pts</FormLabel>
+                   <FormLabel className="text-danger">Multiple Modules</FormLabel><FormLabel className="ps-1">| <b>Not availabe until</b> {assignment.availableDate.substring(0, 10)} |</FormLabel> <br/>
+                   <FormLabel><b>Due</b> {assignment.due.substring(0, 10)} | {assignment.points} pts</FormLabel>
                  </Container>
                  <Container className="flex-fill pe-0"><LessonControlButtons /></Container>
                 </ListGroupItem>
