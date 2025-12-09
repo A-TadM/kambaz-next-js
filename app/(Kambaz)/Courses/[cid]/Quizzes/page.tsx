@@ -140,7 +140,8 @@ export default function Quizzes() {
       { currentUser.role === "FACULTY" &&
        <div>
          <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-quiz-btn"
-                 onClick={async () => {const quiz = {points: 0,
+                 onClick={async () => {const quiz = {description: "",
+                                                     points: 0,
                                                      numOfQs: 0,
                                                      showCorrectAnswers: new Date('2025-01-01'),
                                                      questions: [],
@@ -150,7 +151,7 @@ export default function Quizzes() {
                                        dispatch(setQuizzes([...quizzes, newQuiz]));
 
                                        const qid = newQuiz._id;
-                                       redirect(`/Courses/${cid}/Quizzes/${qid}}`);}}>
+                                       redirect(`/Courses/${cid}/Quizzes/${qid}`);}}>
 
                 <FaPlus style={{ bottom: "1px" }} /> Quiz
          </Button><br /><br /><hr />
@@ -190,7 +191,7 @@ export default function Quizzes() {
                  <FaTrash id="wd-delete" className="text-danger me-3 mb-1 float-end" 
                           onClick={() => onDeleteQuiz(quiz._id)}/>  
                  <FaPencil id="wd-edit" className="me-3 float-end"
-                           onClick={() => redirect(`/Courses/${quiz.course}/Quizzes/${quiz._id}}`)}/>  
+                           onClick={() => redirect(`/Courses/${quiz.course}/Quizzes/${quiz._id}`)}/>  
 
                   
                  {(quiz.status === "PUBLISHED") && (<FormLabel className="me-3 float-end"

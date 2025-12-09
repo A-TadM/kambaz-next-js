@@ -49,3 +49,8 @@ body * {
 .wd-assignment-percentage {
   border: 1px solid gray !important;
 }
+
+.wd-quiz-editor {
+  --bs-nav-link-color: red;
+  --bs-nav-link-hover-color: red;
+}

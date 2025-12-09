@@ -23,7 +23,7 @@ export default function AssignmentsControls() {
         { currentUser.role === "FACULTY" &&
         <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-assignment-btn"
                 onClick={() => {const aid = uuidv4();
-                                redirect(`/Courses/${cid}/Assignments/${aid}}`);}}>
+                                redirect(`/Courses/${cid}/Assignments/${aid}`);}}>
           <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
           Assignment
         </Button> }

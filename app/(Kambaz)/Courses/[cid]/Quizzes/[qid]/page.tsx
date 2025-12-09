@@ -12,10 +12,11 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { FaPencil } from "react-icons/fa6"; 
+import { redirect } from "next/dist/client/components/navigation";
 
 
 export default function QuizDetails() {
-    const { qid }  = useParams();
+    const { cid, qid }  = useParams();
     const [quiz, setQuiz] = useState<any>({});
 
     const getMonthAndDay = (date: string) => {
@@ -84,11 +85,16 @@ export default function QuizDetails() {
         <Form>
             <Row>
               <FormLabel className="fs-3" id="wd-quiz-title" column sm={9}><b>{quiz?.title}</b></FormLabel>
-              <Col> <Button id="wd-quiz-preview-btn" variant="secondary" size="lg" className="float-end">Preview</Button></Col>
-              <Col> <Button id="wd-quiz-edit-btn" variant="secondary" size="lg" className="float-end">
-                             Edit
-                             <FaPencil className="position-relative ms-1" style={{ bottom: "1px" }} />
-                           </Button></Col> 
+              <Col> <Button id="wd-quiz-preview-btn" variant="secondary" size="lg" 
+                            className="float-end"
+                            onClick={() => {redirect(`/Courses/${cid}/Quizzes/${qid}/QuizPreview`);}}>Preview</Button></Col>
+
+              <Col> <Button id="wd-quiz-edit-btn" variant="secondary" size="lg" 
+                            className="float-end"
+                            onClick={() => {redirect(`/Courses/${cid}/Quizzes/${qid}/QuizEditor`);}}>
+                            Edit
+                            <FaPencil className="position-relative ms-1" style={{ bottom: "1px" }} />
+                    </Button></Col> 
             </Row><br /><br />
 
             <Row>
