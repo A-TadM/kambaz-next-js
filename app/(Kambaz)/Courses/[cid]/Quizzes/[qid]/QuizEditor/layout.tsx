@@ -17,7 +17,7 @@ import { ReactNode } from "react";
 
 
 export default function QuizEditorLayout({ children }: { children: ReactNode; }) {
-    const { qid }  = useParams();
+    const { cid, qid }  = useParams();
     const [quiz, setQuiz] = useState<any>({});
     const pathname = usePathname();
 
@@ -40,11 +40,11 @@ export default function QuizEditorLayout({ children }: { children: ReactNode; })
               <div>
                 <Nav variant="tabs">
                   <NavItem>
-                    <NavLink href="Details" 
+                    <NavLink href={`/Courses/${cid}/Quizzes/${qid}/QuizEditor/Details`} 
                              className={`nav-link ${pathname.includes("Details") ? "active" : "wd-quiz-editor"}`}>Details</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="Questions" 
+                    <NavLink href={`/Courses/${cid}/Quizzes/${qid}/QuizEditor/Questions`} 
                              className={`nav-link ${pathname.includes("Questions") ? "active" : "wd-quiz-editor"}`}>Questions</NavLink>
                   </NavItem>
                 </Nav> 

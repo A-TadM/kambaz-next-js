@@ -144,8 +144,7 @@ export default function Quizzes() {
                                                      points: 0,
                                                      numOfQs: 0,
                                                      showCorrectAnswers: new Date('2025-01-01'),
-                                                     questions: [],
-                                                     answers: []};
+                                                     questions: []};
 
                                        const newQuiz = await client.createQuizForCourse(cid as string, quiz);
                                        dispatch(setQuizzes([...quizzes, newQuiz]));
@@ -205,22 +204,15 @@ export default function Quizzes() {
 
 
 
-
-
-
-
-
-
-
           {currentUser.role === "STUDENT" &&
            publishedQuizzes.map((quiz) => (
              <ListGroupItem key={quiz._id} className="wd-lesson p-3 ps-2 d-flex">
                <RxRocket className="text-success fs-1 me-1" />
                <Container>
-                 <Link href={`/Courses/${quiz.course}/Quizzes/${quiz._id}`}
-                       className="wd-quiz-link text-dark text-decoration-none" >
+                 {/*<Link href={`/Courses/${quiz.course}/Quizzes/${quiz._id}`}
+                       className="wd-quiz-link text-dark text-decoration-none" >*/}
                     <b>{quiz.title}</b>
-                 </Link> 
+                 {/*</Link>*/}
                  <br/>
                  <FormLabel className="fs-6">
                            {(getAvailability(quiz) === "Closed") || 
