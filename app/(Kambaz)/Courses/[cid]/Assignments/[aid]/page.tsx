@@ -60,7 +60,7 @@ export default function AssignmentEditor() {
      newValue = { title: "New Assignment", course: String(cid), availableDate: "", 
                   due: "", points: 100, des: "New Assignment Description", availableUntilDate: "" };
    } else {
-     newValue = {...assignment, des: "Description", availableUntilDate: ""};
+     newValue = assignment;
    } 
 
    setNewAssignment(newValue);
