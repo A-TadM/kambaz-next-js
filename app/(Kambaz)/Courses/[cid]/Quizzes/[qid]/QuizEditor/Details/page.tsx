@@ -13,7 +13,6 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
 import Link from "next/link";
-import { setCourses } from "@/app/(Kambaz)/Courses/reducer";
 
 
 export default function QuizEditorDetails() {

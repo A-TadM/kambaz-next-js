@@ -24,7 +24,6 @@ import { FaTrash } from "react-icons/fa";
 export default function QuizEditorQuestions() {
     const { cid, qid }  = useParams();
     const { questions } = useSelector((state: RootState) => state.questionsReducer);
-    const { quizzes } = useSelector((state: RootState) => state.quizzesReducer);
 
     const [type, setType] = useState("");
     const dispatch = useDispatch();
@@ -34,7 +33,7 @@ export default function QuizEditorQuestions() {
        dispatch(setQuestions(questions));
      };
     
-     useEffect(() => {fetchQuestions();}, []);
+     useEffect(() => {fetchQuestions();}, [questions]);
 
      const filterQuestionsByType = async (type: string) => {
        setType(type);

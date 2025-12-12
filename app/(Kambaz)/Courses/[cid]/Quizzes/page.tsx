@@ -37,7 +37,7 @@ export default function Quizzes() {
 
     setPublishedQuizzes(quizzes.filter((quiz: any) => quiz.status === "PUBLISHED"));
   };
-  useEffect(() => {fetchQuizzes();}, []);
+  useEffect(() => {fetchQuizzes();}, [quizzes]);
 
   const onUpdateQuiz = async (quiz: any) => {
     await client.updateQuiz(quiz);
