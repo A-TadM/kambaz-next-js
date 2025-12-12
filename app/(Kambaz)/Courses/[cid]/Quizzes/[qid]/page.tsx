@@ -77,7 +77,7 @@ export default function QuizDetails() {
       const quiz = await client.findQuizById(quizId);  
       setQuiz(quiz);
     };
-    useEffect(() => {fetchQuiz();}, []);
+    useEffect(() => {fetchQuiz();}, [quiz]);
 
 
     return(

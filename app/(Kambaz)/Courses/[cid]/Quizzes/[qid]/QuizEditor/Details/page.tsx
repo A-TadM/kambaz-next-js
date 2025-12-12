@@ -13,15 +13,27 @@ import FormLabel from 'react-bootstrap/FormLabel';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Button from 'react-bootstrap/Button';
 import Link from "next/link";
+import { setCourses } from "@/app/(Kambaz)/Courses/reducer";
 
 
 export default function QuizEditorDetails() {
     const { cid, qid }  = useParams();
     const [quiz, setQuiz] = useState<any>({});
 
+    const [shuffleAnswers, setShuffleAnswers] = useState(false);
+    const [multipleAttempts, setMultipleAttempts] = useState(false);
+    const [oneQuestionAtATime, setOneQuestionAtATime] = useState(false);
+    const [webcamRequired, setWebcamRequired] = useState(false);
+    const [lockQuestionAfterAnswering, setlockQuestionAfterAnswering] = useState(false);
+
     const fetchQuiz = async () => {
       const quiz = await client.findQuizById(qid as string);  
       setQuiz(quiz);
+      setShuffleAnswers(quiz.shuffleAnswers);
+      setMultipleAttempts(quiz.multipleAttempts);
+      setOneQuestionAtATime(quiz.oneQuestionAtATime);
+      setWebcamRequired(quiz.webcamRequired);
+      setlockQuestionAfterAnswering(quiz.lockQuestionAfterAnswering);
     };
     useEffect(() => {fetchQuiz();}, []);
 
@@ -81,8 +93,9 @@ export default function QuizEditorDetails() {
               <Row className="mb-2">
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-shuffle-answers" 
-                             defaultChecked={quiz.shuffleAnswers}
-                             onChange={(e) => setQuiz({ ...quiz, shuffleAnswers: Boolean(e.target.value) })}/>
+                             checked={quiz.shuffleAnswers}
+                             onChange={() => {setQuiz({ ...quiz, shuffleAnswers: !shuffleAnswers })
+                                              setShuffleAnswers(!shuffleAnswers);}}/>
                       <label htmlFor="wd-shuffle-answers">&nbsp;Shuffle Answers</label>   
                   </Col>
               </Row>
@@ -99,8 +112,9 @@ export default function QuizEditorDetails() {
                   <Row>
                     <Col sm={3}> 
                         <FormCheck label="Allow Multiple Attempts" id="wd-multiple-attempts" 
-                                   defaultChecked={quiz.multipleAttempts}
-                                   onChange={(e) => setQuiz({ ...quiz, multipleAttempts: Boolean(e.target.value) })} /> 
+                                   checked={quiz.multipleAttempts}
+                                   onChange={(e) => {setQuiz({ ...quiz, multipleAttempts: !multipleAttempts });
+                                                     setMultipleAttempts(!multipleAttempts);}} /> 
                     </Col>
                     {quiz.multipleAttempts &&
                      <FormLabel htmlFor="wd-num-of-attempts" column sm={2} className="pt-0"> Number of Attempts </FormLabel>}
@@ -122,24 +136,27 @@ export default function QuizEditorDetails() {
               <Row className="mb-2">
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-one-qs-at-a-time" 
-                             defaultChecked={quiz.oneQuestionAtATime}
-                             onChange={(e) => setQuiz({ ...quiz, oneQuestionAtATime: Boolean(e.target.value) })}/>
+                             checked={quiz.oneQuestionAtATime}
+                             onChange={(e) => {setQuiz({ ...quiz, oneQuestionAtATime: !oneQuestionAtATime });
+                                              setOneQuestionAtATime(!oneQuestionAtATime)}}/>
                       <label htmlFor="wd-one-qs-at-a-time">&nbsp;One Question at a Time</label>  
                   </Col>
               </Row>
               <Row className="mb-2">
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-webcam-required" 
-                             defaultChecked={quiz.webcamRequired}
-                             onChange={(e) => setQuiz({ ...quiz, webcamRequired: Boolean(e.target.value) })}/>
+                             checked={quiz.webcamRequired}
+                             onChange={(e) => {setQuiz({ ...quiz, webcamRequired: !webcamRequired });
+                                              setWebcamRequired(!webcamRequired);}}/>
                       <label htmlFor="wd-webcam-required">&nbsp;Webcam Required</label> 
                   </Col>
               </Row>
               <Row className="mb-2">
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-lock-qs-afte-answering" 
-                             defaultChecked={quiz.lockQuestionAfterAnswering}
-                             onChange={(e) => setQuiz({ ...quiz, lockQuestionAfterAnswering: Boolean(e.target.value) })}/>
+                             checked={quiz.lockQuestionAfterAnswering}
+                             onChange={(e) => {setQuiz({ ...quiz, lockQuestionAfterAnswering: !lockQuestionAfterAnswering });
+                                                                  setlockQuestionAfterAnswering(!lockQuestionAfterAnswering);}}/>
                       <label htmlFor="wd-lock-qs-afte-answering">&nbsp;Lock Question After Answering</label> 
                   </Col>
               </Row>

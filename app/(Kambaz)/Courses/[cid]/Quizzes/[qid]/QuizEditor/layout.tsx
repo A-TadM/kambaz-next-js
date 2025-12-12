@@ -25,7 +25,7 @@ export default function QuizEditorLayout({ children }: { children: ReactNode; })
       const quiz = await client.findQuizById(qid as string);  
       setQuiz(quiz);
     };
-    useEffect(() => {fetchQuiz();}, []);
+    useEffect(() => {fetchQuiz();}, [quiz]);
 
 
     return(
