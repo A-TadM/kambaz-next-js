@@ -112,7 +112,7 @@ export default function QuizEditorDetails() {
                     <Col sm={3}> 
                         <FormCheck label="Allow Multiple Attempts" id="wd-multiple-attempts" 
                                    checked={quiz.multipleAttempts}
-                                   onChange={(e) => {setQuiz({ ...quiz, multipleAttempts: !multipleAttempts });
+                                   onChange={() => {setQuiz({ ...quiz, multipleAttempts: !multipleAttempts });
                                                      setMultipleAttempts(!multipleAttempts);}} /> 
                     </Col>
                     {quiz.multipleAttempts &&
@@ -136,7 +136,7 @@ export default function QuizEditorDetails() {
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-one-qs-at-a-time" 
                              checked={quiz.oneQuestionAtATime}
-                             onChange={(e) => {setQuiz({ ...quiz, oneQuestionAtATime: !oneQuestionAtATime });
+                             onChange={() => {setQuiz({ ...quiz, oneQuestionAtATime: !oneQuestionAtATime });
                                               setOneQuestionAtATime(!oneQuestionAtATime)}}/>
                       <label htmlFor="wd-one-qs-at-a-time">&nbsp;One Question at a Time</label>  
                   </Col>
@@ -145,7 +145,7 @@ export default function QuizEditorDetails() {
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-webcam-required" 
                              checked={quiz.webcamRequired}
-                             onChange={(e) => {setQuiz({ ...quiz, webcamRequired: !webcamRequired });
+                             onChange={() => {setQuiz({ ...quiz, webcamRequired: !webcamRequired });
                                               setWebcamRequired(!webcamRequired);}}/>
                       <label htmlFor="wd-webcam-required">&nbsp;Webcam Required</label> 
                   </Col>
@@ -154,7 +154,7 @@ export default function QuizEditorDetails() {
                   <Col sm={{span: 10, offset: 2}}> 
                       <input type="checkbox" id="wd-lock-qs-afte-answering" 
                              checked={quiz.lockQuestionAfterAnswering}
-                             onChange={(e) => {setQuiz({ ...quiz, lockQuestionAfterAnswering: !lockQuestionAfterAnswering });
+                             onChange={() => {setQuiz({ ...quiz, lockQuestionAfterAnswering: !lockQuestionAfterAnswering });
                                                                   setlockQuestionAfterAnswering(!lockQuestionAfterAnswering);}}/>
                       <label htmlFor="wd-lock-qs-afte-answering">&nbsp;Lock Question After Answering</label> 
                   </Col>
